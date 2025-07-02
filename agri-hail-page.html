@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SeguroTech - Seguro contra Granizo</title>
+    <link rel="icon" type="image/png" href="segurotech-logo.png">
+    <link rel="shortcut icon" type="image/png" href="segurotech-logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #10b981;
+            --accent-color: #f59e0b;
+            --dark-bg: #111827;
+            --light-bg: #f9fafb;
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+            --hail-color: #8b5cf6;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--light-bg);
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.3);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        .logo img {
+            height: 40px;
+            width: auto;
+            margin-right: 10px;
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            position: fixed;
+            top: 60px;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 1rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 999;
+        }
+
+        .progress-bar {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .progress-bar::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #e5e7eb;
+            transform: translateY(-50%);
+            z-index: -1;
+        }
+
+        .progress-step {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: white;
+            border: 2px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .progress-step.active {
+            background: var(--hail-color);
+            border-color: var(--hail-color);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .progress-step.completed {
+            background: var(--success-color);
+            border-color: var(--success-color);
+            color: white;
+        }
+
+        /* Main Content */
+        .main-container {
+            max-width: 1200px;
+            margin: 140px auto 2rem;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 2rem;
+            min-height: calc(100vh - 160px);
+        }
+
+        /* Form Section */
+        .form-section {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-header {
+            margin-bottom: 2rem;
+        }
+
+        .section-header h2 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .section-header p {
+            color: var(--text-light);
+        }
+
+        /* Back Button */
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            color: var(--hail-color);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            transition: all 0.3s;
+        }
+
+        .back-button i {
+            margin-right: 0.5rem;
+            transition: transform 0.3s;
+        }
+
+        .back-button:hover i {
+            transform: translateX(-5px);
+        }
+
+        /* Form Inputs */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--hail-color);
+        }
+
+        /* Slider Inputs */
+        .slider-container {
+            margin-bottom: 2rem;
+        }
+
+        .slider-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .slider-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--hail-color);
+        }
+
+        .custom-slider {
+            width: 100%;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 5px;
+            outline: none;
+            -webkit-appearance: none;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .custom-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            background: var(--hail-color);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(139, 92, 246, 0.3);
+            transition: transform 0.2s;
+        }
+
+        .custom-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        .custom-slider::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            background: var(--hail-color);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(139, 92, 246, 0.3);
+            transition: transform 0.2s;
+        }
+
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.5rem;
+            font-size: 0.875rem;
+            color: var(--text-light);
+        }
+
+        /* Coverage Visualization */
+        .coverage-chart {
+            background: var(--light-bg);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .coverage-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .coverage-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .coverage-item .label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .coverage-item .label i {
+            color: var(--success-color);
+        }
+
+        .coverage-item .value {
+            font-weight: bold;
+            color: var(--hail-color);
+        }
+
+        /* Summary Sidebar */
+        .summary-sidebar {
+            position: sticky;
+            top: 140px;
+            height: fit-content;
+        }
+
+        .summary-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .summary-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid var(--light-bg);
+        }
+
+        .summary-header h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--hail-color);
+        }
+
+        .price-display {
+            font-size: 3rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--hail-color), #6366f1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .price-period {
+            font-size: 1rem;
+            color: var(--text-light);
+        }
+
+        .summary-details {
+            margin-bottom: 2rem;
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+            font-size: 0.875rem;
+        }
+
+        .detail-item .label {
+            color: var(--text-light);
+        }
+
+        .detail-item .value {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        /* Buttons */
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            flex: 1;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--hail-color), #6366f1);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--hail-color);
+            border: 2px solid var(--hail-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--hail-color);
+            color: white;
+        }
+
+        .btn-success {
+            background: var(--success-color);
+            color: white;
+            width: 100%;
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+        }
+
+        /* Hail Icon */
+        .hail-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--hail-color), #6366f1);
+            border-radius: 15px;
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Info Box */
+        .info-box {
+            background: rgba(139, 92, 246, 0.1);
+            border-left: 4px solid var(--hail-color);
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        .info-box h4 {
+            color: var(--hail-color);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .info-box p {
+            color: var(--text-dark);
+            font-size: 0.9rem;
+        }
+
+        /* Hail Size Reference */
+        .hail-reference {
+            background: var(--light-bg);
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .hail-reference h5 {
+            color: var(--text-dark);
+            margin-bottom: 0.75rem;
+            font-size: 0.95rem;
+        }
+
+        .hail-sizes {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
+            font-size: 0.85rem;
+        }
+
+        .hail-size-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-light);
+        }
+
+        .hail-size-item .size {
+            font-weight: 600;
+            color: var(--hail-color);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .main-container {
+                grid-template-columns: 1fr;
+                margin-top: 120px;
+            }
+
+            .summary-sidebar {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                top: auto;
+                z-index: 998;
+            }
+
+            .summary-card {
+                border-radius: 20px 20px 0 0;
+                box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.1);
+            }
+
+            .price-display {
+                font-size: 2rem;
+            }
+
+            .progress-container {
+                padding: 0.5rem;
+            }
+
+            .progress-step {
+                width: 30px;
+                height: 30px;
+                font-size: 0.875rem;
+            }
+
+            .hail-sizes {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="segurotech-logo.png" alt="SeguroTech Logo">
+                <span class="logo-text">SeguroTech</span>
+            </a>
+            <div class="nav-links">
+                <span style="color: var(--text-light);">¿Necesitas ayuda?</span>
+                <a href="quote.html" class="cta-button">Cotizar Otro Seguro</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-bar">
+            <div class="progress-step completed" data-step="1">✓</div>
+            <div class="progress-step active" data-step="2">2</div>
+            <div class="progress-step" data-step="3">3</div>
+            <div class="progress-step" data-step="4">4</div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Form Section -->
+        <div class="form-content">
+            <div class="form-section">
+                <a href="agri-selection.html" class="back-button">
+                    <i class="fas fa-arrow-left"></i>
+                    Volver a tipos de seguro
+                </a>
+
+                <div class="hail-icon">
+                    <i class="fas fa-cloud-meatball"></i>
+                </div>
+
+                <div class="section-header">
+                    <h2>Seguro Paramétrico contra Granizo</h2>
+                    <p>Protección automática contra daños por granizo</p>
+                </div>
+
+                <div class="info-box">
+                    <h4><i class="fas fa-info-circle"></i> ¿Cómo funciona?</h4>
+                    <p>
+                        Cuando el diámetro del granizo detectado en tu zona supera el tamaño mínimo que definas, 
+                        recibirás automáticamente el pago de tu cobertura. Medición objetiva por radar meteorológico.
+                    </p>
+                </div>
+
+                <!-- Hail Size Threshold Slider -->
+                <div class="slider-container">
+                    <div class="slider-header">
+                        <label>Diámetro mínimo de granizo (mm)</label>
+                        <span class="slider-value" id="hail-value">20mm</span>
+                    </div>
+                    <input type="range" class="custom-slider" id="hail-slider" min="10" max="50" value="20" step="5">
+                    <div class="slider-labels">
+                        <span>10mm (Mayor sensibilidad)</span>
+                        <span>50mm (Menor sensibilidad)</span>
+                    </div>
+                </div>
+
+                <div class="hail-reference">
+                    <h5>Referencia de tamaños:</h5>
+                    <div class="hail-sizes">
+                        <div class="hail-size-item">
+                            <span class="size">10mm:</span>
+                            <span>Arveja</span>
+                        </div>
+                        <div class="hail-size-item">
+                            <span class="size">20mm:</span>
+                            <span>Moneda de $1</span>
+                        </div>
+                        <div class="hail-size-item">
+                            <span class="size">30mm:</span>
+                            <span>Nuez</span>
+                        </div>
+                        <div class="hail-size-item">
+                            <span class="size">50mm:</span>
+                            <span>Pelota de golf</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Coverage per Hectare Slider -->
+                <div class="slider-container">
+                    <div class="slider-header">
+                        <label>Cobertura por hectárea</label>
+                        <span class="slider-value" id="coverage-value">$12,000</span>
+                    </div>
+                    <input type="range" class="custom-slider" id="coverage-slider" min="5000" max="40000" value="12000" step="1000">
+                    <div class="slider-labels">
+                        <span>$5,000</span>
+                        <span>$40,000</span>
+                    </div>
+                </div>
+
+                <!-- Number of Hectares -->
+                <div class="form-group">
+                    <label>Número de hectáreas</label>
+                    <input type="number" id="hectares" min="1" value="50" required>
+                </div>
+
+                <!-- Province Selection -->
+                <div class="form-group">
+                    <label>Provincia</label>
+                    <select id="province" required>
+                        <option value="">Selecciona tu provincia</option>
+                        <option value="buenos-aires">Buenos Aires</option>
+                        <option value="cordoba">Córdoba</option>
+                        <option value="santa-fe">Santa Fe</option>
+                        <option value="la-pampa">La Pampa</option>
+                        <option value="mendoza">Mendoza</option>
+                        <option value="san-juan">San Juan</option>
+                        <option value="san-luis">San Luis</option>
+                        <option value="entre-rios">Entre Ríos</option>
+                        <option value="rio-negro">Río Negro</option>
+                        <option value="neuquen">Neuquén</option>
+                    </select>
+                </div>
+
+                <!-- Crop Type -->
+                <div class="form-group">
+                    <label>Tipo de cultivo</label>
+                    <select id="crop-type" required>
+                        <option value="vid">Vid (uva)</option>
+                        <option value="frutales">Frutales</option>
+                        <option value="soja">Soja</option>
+                        <option value="maiz">Maíz</option>
+                        <option value="trigo">Trigo</option>
+                        <option value="girasol">Girasol</option>
+                        <option value="hortalizas">Hortalizas</option>
+                        <option value="tabaco">Tabaco</option>
+                    </select>
+                </div>
+
+                <!-- Coverage Period -->
+                <div class="form-group">
+                    <label>Período de cobertura</label>
+                    <select id="coverage-period" required>
+                        <option value="full-season">Temporada completa (Oct-Mar)</option>
+                        <option value="critical">Período crítico (Dic-Feb)</option>
+                        <option value="harvest">Pre-cosecha (Feb-Mar)</option>
+                    </select>
+                </div>
+
+                <!-- Coverage Visualization -->
+                <div class="coverage-chart">
+                    <h4 style="margin-bottom: 1rem;">Detalles de tu cobertura:</h4>
+                    <div class="coverage-item">
+                        <div class="label">
+                            <i class="fas fa-check"></i>
+                            <span>Activación automática</span>
+                        </div>
+                        <div class="value">≥ <span id="threshold-display">20</span>mm</div>
+                    </div>
+                    <div class="coverage-item">
+                        <div class="label">
+                            <i class="fas fa-check"></i>
+                            <span>Pago por hectárea</span>
+                        </div>
+                        <div class="value" id="per-hectare-display">$12,000</div>
+                    </div>
+                    <div class="coverage-item">
+                        <div class="label">
+                            <i class="fas fa-check"></i>
+                            <span>Cobertura total</span>
+                        </div>
+                        <div class="value" id="total-coverage-display">$600,000</div>
+                    </div>
+                    <div class="coverage-item">
+                        <div class="label">
+                            <i class="fas fa-check"></i>
+                            <span>Pago en</span>
+                        </div>
+                        <div class="value">7 días</div>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn btn-secondary" onclick="window.location.href='agri-selection.html'">Cambiar tipo</button>
+                    <button class="btn btn-primary" onclick="proceedToNextStep()">Continuar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Summary Sidebar -->
+        <div class="summary-sidebar">
+            <div class="summary-card">
+                <div class="summary-header">
+                    <h3>Seguro contra Granizo</h3>
+                    <div class="price-display" id="price-display">$0</div>
+                    <div class="price-period">por temporada</div>
+                </div>
+
+                <div class="summary-details">
+                    <div class="detail-item">
+                        <span class="label">Tipo de seguro:</span>
+                        <span class="value">Paramétrico Granizo</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="label">Hectáreas:</span>
+                        <span class="value" id="summary-hectares">50</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="label">Umbral de activación:</span>
+                        <span class="value" id="summary-threshold">≥ 20mm</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="label">Detección:</span>
+                        <span class="value">Radar meteorológico</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="label">Cobertura:</span>
+                        <span class="value" id="summary-period">Temporada completa</span>
+                    </div>
+                </div>
+
+                <div style="margin-top: 1.5rem; padding: 1rem; background: var(--light-bg); border-radius: 10px;">
+                    <h4 style="margin-bottom: 0.5rem; font-size: 1rem;">Tecnología de detección:</h4>
+                    <ul style="list-style: none; font-size: 0.875rem; color: var(--text-light);">
+                        <li style="margin-bottom: 0.5rem;">✓ Radar Doppler del SMN</li>
+                        <li style="margin-bottom: 0.5rem;">✓ Estaciones meteorológicas</li>
+                        <li style="margin-bottom: 0.5rem;">✓ Reportes verificados</li>
+                        <li>✓ Precisión de ubicación GPS</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize values
+        let hailData = {
+            hailThreshold: 20,
+            coveragePerHectare: 12000,
+            hectares: 50,
+            province: '',
+            cropType: 'vid',
+            coveragePeriod: 'full-season'
+        };
+
+        // Setup event listeners
+        document.getElementById('hail-slider').addEventListener('input', function() {
+            hailData.hailThreshold = parseInt(this.value);
+            document.getElementById('hail-value').textContent = `${this.value}mm`;
+            document.getElementById('threshold-display').textContent = this.value;
+            document.getElementById('summary-threshold').textContent = `≥ ${this.value}mm`;
+            calculatePrice();
+        });
+
+        document.getElementById('coverage-slider').addEventListener('input', function() {
+            hailData.coveragePerHectare = parseInt(this.value);
+            document.getElementById('coverage-value').textContent = `$${parseInt(this.value).toLocaleString()}`;
+            document.getElementById('per-hectare-display').textContent = `$${parseInt(this.value).toLocaleString()}`;
+            updateTotalCoverage();
+            calculatePrice();
+        });
+
+        document.getElementById('hectares').addEventListener('input', function() {
+            hailData.hectares = parseInt(this.value) || 0;
+            document.getElementById('summary-hectares').textContent = this.value;
+            updateTotalCoverage();
+            calculatePrice();
+        });
+
+        document.getElementById('province').addEventListener('change', function() {
+            hailData.province = this.value;
+            calculatePrice();
+        });
+
+        document.getElementById('crop-type').addEventListener('change', function() {
+            hailData.cropType = this.value;
+            calculatePrice();
+        });
+
+        document.getElementById('coverage-period').addEventListener('change', function() {
+            hailData.coveragePeriod = this.value;
+            const periodText = {
+                'full-season': 'Temporada completa',
+                'critical': 'Período crítico',
+                'harvest': 'Pre-cosecha'
+            };
+            document.getElementById('summary-period').textContent = periodText[this.value];
+            calculatePrice();
+        });
+
+        function updateTotalCoverage() {
+            const total = hailData.coveragePerHectare * hailData.hectares;
+            document.getElementById('total-coverage-display').textContent = `$${total.toLocaleString()}`;
+        }
+
+        function calculatePrice() {
+            // Base rate calculation for hail insurance
+            const baseRate = 0.055; // 5.5% base rate
+            
+            // Risk factor based on hail size threshold (smaller threshold = higher risk)
+            const riskFactor = 1 + ((50 - hailData.hailThreshold) / 40) * 0.6;
+            
+            // Province risk multipliers for hail
+            const provinceMultipliers = {
+                'buenos-aires': 1.1,
+                'cordoba': 1.3,
+                'santa-fe': 1.2,
+                'la-pampa': 1.4,
+                'mendoza': 1.8, // High hail risk
+                'san-juan': 1.6,
+                'san-luis': 1.5,
+                'entre-rios': 1.1,
+                'rio-negro': 1.3,
+                'neuquen': 1.2
+            };
+            
+            // Crop risk multipliers for hail
+            const cropMultipliers = {
+                'vid': 1.5, // Very sensitive to hail
+                'frutales': 1.4,
+                'hortalizas': 1.3,
+                'tabaco': 1.3,
+                'soja': 1.0,
+                'maiz': 0.9,
+                'trigo': 0.8,
+                'girasol': 0.85
+            };
+            
+            // Coverage period multipliers
+            const periodMultipliers = {
+                'full-season': 1.0,
+                'critical': 0.7,
+                'harvest': 0.5
+            };
+            
+            const provinceMultiplier = provinceMultipliers[hailData.province] || 1.3;
+            const cropMultiplier = cropMultipliers[hailData.cropType] || 1.0;
+            const periodMultiplier = periodMultipliers[hailData.coveragePeriod] || 1.0;
+            
+            // Calculate total coverage and premium
+            const totalCoverage = hailData.coveragePerHectare * hailData.hectares;
+            const premium = Math.round(totalCoverage * baseRate * riskFactor * provinceMultiplier * cropMultiplier * periodMultiplier);
+            
+            // Update price display with animation
+            const priceElement = document.getElementById('price-display');
+            priceElement.style.transform = 'scale(1.1)';
+            priceElement.style.transition = 'transform 0.3s ease';
+            
+            setTimeout(() => {
+                priceElement.textContent = `$${premium.toLocaleString()}`;
+                priceElement.style.transform = 'scale(1)';
+            }, 150);
+        }
+
+        function proceedToNextStep() {
+            if (!hailData.province) {
+                alert('Por favor selecciona tu provincia');
+                return;
+            }
+            
+            // Store data and proceed
+            sessionStorage.setItem('hailInsuranceData', JSON.stringify(hailData));
+            sessionStorage.setItem('agriculturalType', 'hail');
+            sessionStorage.setItem('agriculturalPrice', calculatePriceValue());
+            
+            // Redirect back to quote page step 3
+            window.location.href = 'quote.html?step=3&type=agricola';
+        }
+        
+        function calculatePriceValue() {
+            // Base rate calculation for hail insurance
+            const baseRate = 0.055; // 5.5% base rate
+            
+            // Risk factor based on hail size threshold (smaller threshold = higher risk)
+            const riskFactor = 1 + ((50 - hailData.hailThreshold) / 40) * 0.6;
+            
+            // Province risk multipliers for hail
+            const provinceMultipliers = {
+                'buenos-aires': 1.1,
+                'cordoba': 1.3,
+                'santa-fe': 1.2,
+                'la-pampa': 1.4,
+                'mendoza': 1.8, // High hail risk
+                'san-juan': 1.6,
+                'san-luis': 1.5,
+                'entre-rios': 1.1,
+                'rio-negro': 1.3,
+                'neuquen': 1.2
+            };
+            
+            // Crop risk multipliers for hail
+            const cropMultipliers = {
+                'vid': 1.5, // Very sensitive to hail
+                'frutales': 1.4,
+                'hortalizas': 1.3,
+                'tabaco': 1.3,
+                'soja': 1.0,
+                'maiz': 0.9,
+                'trigo': 0.8,
+                'girasol': 0.85
+            };
+            
+            // Coverage period multipliers
+            const periodMultipliers = {
+                'full-season': 1.0,
+                'critical': 0.7,
+                'harvest': 0.5
+            };
+            
+            const provinceMultiplier = provinceMultipliers[hailData.province] || 1.3;
+            const cropMultiplier = cropMultipliers[hailData.cropType] || 1.0;
+            const periodMultiplier = periodMultipliers[hailData.coveragePeriod] || 1.0;
+            
+            // Calculate total coverage and premium
+            const totalCoverage = hailData.coveragePerHectare * hailData.hectares;
+            return Math.round(totalCoverage * baseRate * riskFactor * provinceMultiplier * cropMultiplier * periodMultiplier);
+        }
+
+        // Initialize calculations
+        updateTotalCoverage();
+        calculatePrice();
+    </script>
+</body>
+</html>
