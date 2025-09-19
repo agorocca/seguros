@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SeguroTech - Sobre Nosotros</title>
+    <link rel="icon" type="image/png" href="segurotech-logo.png">
+    <link rel="shortcut icon" type="image/png" href="segurotech-logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #10b981;
+            --accent-color: #f59e0b;
+            --dark-bg: #111827;
+            --light-bg: #f9fafb;
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--light-bg);
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        .logo img {
+            height: 40px;
+            width: auto;
+            margin-right: 10px;
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.3);
+        }
+
+        /* Hero Section */
+        .hero-about {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #1e293b 100%);
+            color: white;
+            padding: 120px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-about::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+            top: -300px;
+            right: -200px;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -30px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, white 0%, var(--secondary-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Main Content */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        /* Mission Section */
+        .mission-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-bottom: 6rem;
+        }
+
+        .mission-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-dark);
+        }
+
+        .mission-content p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .mission-stats {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .stat-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1.5rem;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .stat-content h3 {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-content p {
+            color: var(--text-light);
+        }
+
+        /* Problem Section */
+        .problem-section {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 4rem;
+        }
+
+        .problem-section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--text-dark);
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .problem-card {
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        .problem-card i {
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .problem-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .problem-card p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Solution Section */
+        .solution-section {
+            margin-bottom: 4rem;
+        }
+
+        .solution-section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--text-dark);
+        }
+
+        .solution-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .solution-card {
+            background: var(--light-bg);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: transform 0.3s;
+        }
+
+        .solution-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .solution-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            color: white;
+            font-size: 1.25rem;
+        }
+
+        .solution-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .solution-card p {
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        /* Timeline Section */
+        .timeline-section {
+            margin-bottom: 4rem;
+        }
+
+        .timeline-section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--text-dark);
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 2px;
+            height: 100%;
+            background: #e5e7eb;
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-content {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            width: 45%;
+        }
+
+        .timeline-marker {
+            width: 20px;
+            height: 20px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .timeline-content h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content h4 {
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Team Section */
+        .team-section {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .team-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .team-section p {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            line-height: 1.8;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .value-item {
+            text-align: center;
+        }
+
+        .value-item i {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        .value-item h3 {
+            font-size: 1.25rem;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 4rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-section .cta-button {
+            background: white;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            padding: 1rem 2rem;
+        }
+
+        .cta-section .cta-button:hover {
+            background: var(--light-bg);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .hero-content p {
+                font-size: 1.25rem;
+            }
+
+            .mission-section {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline-content {
+                width: 90%;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-marker {
+                left: 20px;
+            }
+
+            .timeline-item {
+                flex-direction: row !important;
+                padding-left: 50px;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeIn 1s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="segurotech-logo.png" alt="SeguroTech Logo">
+                <span class="logo-text">SeguroTech</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html#como-funciona">Cómo Funciona</a></li>
+                <li><a href="index.html#productos">Productos</a></li>
+                <li><a href="about.html">Sobre Nosotros</a></li>
+                <li><a href="index.html#contacto">Contacto</a></li>
+            </ul>
+            <a href="quote.html" class="cta-button">Comenzar Ahora</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-about">
+        <div class="hero-content">
+            <h1>Democratizando el Acceso a Seguros en América Latina</h1>
+            <p>Somos la primera aseguradora 100% digital que entiende las necesidades reales de millones de latinoamericanos desprotegidos</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Mission Section -->
+        <section class="mission-section fade-in">
+            <div class="mission-content">
+                <h2>Nuestra Misión</h2>
+                <p>
+                    En América Latina existe una brecha de protección de $7.2 billones de dólares. Con solo el 2.7% del PIB en seguros (vs 6.5% global), millones de familias quedan vulnerables ante cualquier imprevisto.
+                </p>
+                <p>
+                    SeguroTech nació para cambiar esta realidad. Combinamos tecnología de punta con un profundo entendimiento de las necesidades locales para crear seguros accesibles, transparentes y que realmente funcionen cuando más se necesitan.
+                </p>
+                <p>
+                    No somos solo una aseguradora más. Somos el puente entre la tecnología global y las realidades locales, creando productos que van desde microseguros de $2 al mes hasta protección paramétrica para agricultores que reciben pagos automáticos sin papeleos.
+                </p>
+            </div>
+            <div class="mission-stats">
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>50,000+</h3>
+                        <p>Familias protegidas</p>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-globe-americas"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>5 países</h3>
+                        <p>Expansión regional</p>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>7 días</h3>
+                        <p>Pago máximo garantizado</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Problem Section -->
+        <section class="problem-section fade-in">
+            <h2>El Problema que Resolvemos</h2>
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <i class="fas fa-file-invoice"></i>
+                    <h3>Burocracia Excesiva</h3>
+                    <p>Los seguros tradicionales requieren montañas de papeles y semanas de espera</p>
+                </div>
+                <div class="problem-card">
+                    <i class="fas fa-question-circle"></i>
+                    <h3>Falta de Transparencia</h3>
+                    <p>Pólizas complejas llenas de letra chica que nadie entiende</p>
+                </div>
+                <div class="problem-card">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <h3>Precios Inaccesibles</h3>
+                    <p>Productos diseñados solo para clases altas urbanas</p>
+                </div>
+                <div class="problem-card">
+                    <i class="fas fa-user-slash"></i>
+                    <h3>Exclusión Digital</h3>
+                    <p>Sin opciones para trabajadores informales o rurales</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Solution Section -->
+        <section class="solution-section fade-in">
+            <h2>Nuestra Solución</h2>
+            <div class="solution-grid">
+                <div class="solution-card">
+                    <div class="solution-icon">
+                        <i class="fas fa-satellite"></i>
+                    </div>
+                    <h3>Tecnología Paramétrica</h3>
+                    <p>Usamos datos satelitales y meteorológicos para activar pagos automáticos. Si llueve menos del umbral acordado o el granizo supera cierto tamaño, el pago se procesa sin que tengas que hacer nada.</p>
+                </div>
+                <div class="solution-card">
+                    <div class="solution-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>IA para Todos</h3>
+                    <p>Nuestra inteligencia artificial analiza patrones de riesgo usando datos alternativos como uso de celular y transacciones digitales, permitiendo asegurar a personas sin historial crediticio tradicional.</p>
+                </div>
+                <div class="solution-card">
+                    <div class="solution-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>100% Digital</h3>
+                    <p>Desde la cotización hasta el pago de siniestros, todo sucede en tu celular. Integrado con WhatsApp y las apps que ya usas todos los días. Sin oficinas, sin citas, sin esperas.</p>
+                </div>
+                <div class="solution-card">
+                    <div class="solution-icon">
+                        <i class="fas fa-hand-holding-usd"></i>
+                    </div>
+                    <h3>Microseguros Accesibles</h3>
+                    <p>Seguros desde $2 dólares al mes. Paga solo por lo que necesitas, cuando lo necesitas. Modelos por uso para conductores de apps y protección flexible para trabajadores informales.</p>
+                </div>
+                <div class="solution-card">
+                    <div class="solution-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Seguros P2P Comunitarios</h3>
+                    <p>Crea pools de seguro con tu comunidad. Los miembros comparten riesgos pequeños entre sí, mientras nosotros cubrimos eventos catastróficos. Transparencia total con blockchain.</p>
+                </div>
+                <div class="solution-card">
+                    <div class="solution-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>Alianzas Estratégicas</h3>
+                    <p>Trabajamos con cooperativas agrícolas, plataformas gig, fintechs y telcos para llegar donde los seguros tradicionales no llegan. Tu seguro donde ya estás.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Timeline Section -->
+        <section class="timeline-section fade-in">
+            <h2>Nuestro Plan de Expansión</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3>Septiembre 2025</h3>
+                        <h4>Argentina - Seguros Paramétricos Agrícolas</h4>
+                        <p>Lanzamiento con ACA y AFA cubriendo 50,000+ agricultores con protección contra sequía, granizo e inundación.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3>2026</h3>
+                        <h4>México - Microseguros de Salud y Vida</h4>
+                        <p>Integración con OXXO y Telcel para distribución masiva de microseguros al 55% de trabajadores informales.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3>2027</h3>
+                        <h4>Colombia - Protección Gig Economy</h4>
+                        <p>Alianzas con Rappi, Didi y Uber para seguros por uso y protección de ingresos para conductores.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3>2028</h3>
+                        <h4>Brasil - Plataforma Agregadora</h4>
+                        <p>Marketplace digital para comparar y contratar seguros, integrado con Nubank y Mercado Pago.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3>2029</h3>
+                        <h4>Perú - Pools P2P Comunitarios</h4>
+                        <p>Seguros colaborativos para cooperativas, artesanos y pequeños comerciantes con tecnología blockchain.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Team Section -->
+        <section class="team-section fade-in">
+            <h2>Construyendo el Futuro Juntos</h2>
+            <p>
+                Somos un equipo diverso de tecnólogos, actuarios, y expertos en inclusión financiera unidos por la misión de proteger a cada familia latinoamericana. Creemos que la tecnología debe servir para incluir, no para excluir.
+            </p>
+            <div class="values-grid">
+                <div class="value-item">
+                    <i class="fas fa-heart"></i>
+                    <h3>Empatía</h3>
+                </div>
+                <div class="value-item">
+                    <i class="fas fa-lightbulb"></i>
+                    <h3>Innovación</h3>
+                </div>
+                <div class="value-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Transparencia</h3>
+                </div>
+                <div class="value-item">
+                    <i class="fas fa-globe"></i>
+                    <h3>Impacto Social</h3>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section fade-in">
+            <h2>Únete a la Revolución de los Seguros</h2>
+            <p>Protege lo que más importa con tecnología que entiende tus necesidades</p>
+            <a href="quote.html" class="cta-button">Cotiza tu Seguro Ahora</a>
+        </section>
+    </div>
+
+    <script>
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationDelay = '0.1s';
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            el.style.animationPlayState = 'paused';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
