@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SeguroTech - Selecciona tu Seguro Agrícola</title>
+    <link rel="icon" type="image/png" href="segurotech-logo.png">
+    <link rel="shortcut icon" type="image/png" href="segurotech-logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #10b981;
+            --accent-color: #f59e0b;
+            --dark-bg: #111827;
+            --light-bg: #f9fafb;
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--light-bg);
+            min-height: 100vh;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.3);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        .logo img {
+            height: 40px;
+            width: auto;
+            margin-right: 10px;
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Main Content */
+        .main-container {
+            max-width: 1200px;
+            margin: 100px auto 2rem;
+            padding: 0 2rem;
+        }
+
+        .header-section {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .header-section h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--text-dark), var(--primary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header-section p {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Insurance Options Grid */
+        .insurance-options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .insurance-option-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: inherit;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .insurance-option-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            transform: scaleX(0);
+            transition: transform 0.3s;
+            transform-origin: left;
+        }
+
+        .insurance-option-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .insurance-option-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .option-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 2.5rem;
+            color: white;
+        }
+
+        .drought-icon {
+            background: linear-gradient(135deg, #f59e0b, #dc2626);
+        }
+
+        .flood-icon {
+            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+        }
+
+        .hail-icon {
+            background: linear-gradient(135deg, #8b5cf6, #6366f1);
+        }
+
+        .option-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .option-description {
+            color: var(--text-light);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .option-features {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .option-features li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .option-features li i {
+            color: var(--secondary-color);
+            margin-right: 0.5rem;
+        }
+
+        .cta-text {
+            color: var(--primary-color);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .cta-text i {
+            margin-left: 0.5rem;
+            transition: transform 0.3s;
+        }
+
+        .insurance-option-card:hover .cta-text i {
+            transform: translateX(5px);
+        }
+
+        /* Back Button */
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            transition: all 0.3s;
+        }
+
+        .back-button i {
+            margin-right: 0.5rem;
+            transition: transform 0.3s;
+        }
+
+        .back-button:hover i {
+            transform: translateX(-5px);
+        }
+
+        /* Data & Technology Section */
+        .data-section {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 3rem;
+        }
+
+        .data-section h2 {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .data-intro {
+            text-align: center;
+            color: var(--text-light);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 3rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .data-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .data-card {
+            background: var(--light-bg);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .data-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: white;
+            font-size: 2rem;
+        }
+
+        .data-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .data-card p {
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        .data-card strong {
+            color: var(--primary-color);
+        }
+
+        .data-partners {
+            background: var(--light-bg);
+            border-radius: 15px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .data-partners h3 {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: var(--text-dark);
+        }
+
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .partner-logo {
+            text-align: center;
+        }
+
+        .partner-logo img {
+            height: 40px;
+            width: auto;
+            object-fit: contain;
+            filter: grayscale(100%);
+            opacity: 0.7;
+            transition: all 0.3s;
+            margin-bottom: 0.5rem;
+        }
+
+        .partner-logo:hover img {
+            filter: grayscale(0%);
+            opacity: 1;
+        }
+
+        .partner-logo p {
+            font-size: 0.875rem;
+            color: var(--text-light);
+        }
+
+        .accuracy-metrics {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .accuracy-metrics h3 {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: var(--text-dark);
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .metric-item {
+            text-align: center;
+        }
+
+        .metric-number {
+            font-size: 3rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-label {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Info Section */
+        .info-section {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .info-section h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .info-section p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .benefit-item {
+            text-align: center;
+        }
+
+        .benefit-item i {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .benefit-item h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .benefit-item p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .header-section h1 {
+                font-size: 2rem;
+            }
+
+            .insurance-options-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .info-section {
+                padding: 2rem;
+            }
+
+            .data-section {
+                padding: 2rem;
+            }
+
+            .data-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .partners-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+
+            .partner-logo img {
+                height: 30px;
+            }
+
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .metric-number {
+                font-size: 2.5rem;
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="segurotech-logo.png" alt="SeguroTech Logo">
+                <span class="logo-text">SeguroTech</span>
+            </a>
+            <div class="nav-links">
+                <span style="color: var(--text-light);">¿Necesitas ayuda?</span>
+                <a href="quote.html" class="cta-button">Cotizar Otro Seguro</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <a href="quote.html" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+            Volver a cotización
+        </a>
+
+        <div class="header-section">
+            <h1>Elige tu Seguro Agrícola Paramétrico</h1>
+            <p>Protección automática basada en datos climáticos. Sin inspecciones, sin demoras.</p>
+        </div>
+
+        <!-- Insurance Options -->
+        <div class="insurance-options-grid">
+            <!-- Drought Insurance -->
+            <a href="agri-drought-page.html" class="insurance-option-card">
+                <div class="option-icon drought-icon">
+                    <i class="fas fa-sun"></i>
+                </div>
+                <h2 class="option-title">Seguro contra Sequía</h2>
+                <p class="option-description">
+                    Protección automática cuando las lluvias caen por debajo del umbral establecido. 
+                    Ideal para cultivos sensibles a la falta de agua.
+                </p>
+                <ul class="option-features">
+                    <li><i class="fas fa-check"></i> Pago automático basado en datos satelitales</li>
+                    <li><i class="fas fa-check"></i> Umbral de lluvia personalizable</li>
+                    <li><i class="fas fa-check"></i> Sin necesidad de inspección en campo</li>
+                </ul>
+                <div class="cta-text">
+                    Personalizar cobertura <i class="fas fa-arrow-right"></i>
+                </div>
+            </a>
+
+            <!-- Flood Insurance -->
+            <a href="agri-flood-page.html" class="insurance-option-card">
+                <div class="option-icon flood-icon">
+                    <i class="fas fa-water"></i>
+                </div>
+                <h2 class="option-title">Seguro contra Inundación</h2>
+                <p class="option-description">
+                    Cobertura que se activa cuando las precipitaciones superan el límite máximo. 
+                    Perfecto para zonas bajas o propensas a anegamiento.
+                </p>
+                <ul class="option-features">
+                    <li><i class="fas fa-check"></i> Monitoreo satelital de precipitaciones</li>
+                    <li><i class="fas fa-check"></i> Umbral máximo de lluvia ajustable</li>
+                    <li><i class="fas fa-check"></i> Compensación rápida por pérdidas</li>
+                </ul>
+                <div class="cta-text">
+                    Configurar protección <i class="fas fa-arrow-right"></i>
+                </div>
+            </a>
+
+            <!-- Hail Insurance -->
+            <a href="agri-hail-page.html" class="insurance-option-card">
+                <div class="option-icon hail-icon">
+                    <i class="fas fa-cloud-meatball"></i>
+                </div>
+                <h2 class="option-title">Seguro contra Granizo</h2>
+                <p class="option-description">
+                    Indemnización automática cuando el tamaño del granizo supera el diámetro crítico. 
+                    Esencial para cultivos vulnerables al daño por impacto.
+                </p>
+                <ul class="option-features">
+                    <li><i class="fas fa-check"></i> Detección por radar meteorológico</li>
+                    <li><i class="fas fa-check"></i> Tamaño de granizo parametrizable</li>
+                    <li><i class="fas fa-check"></i> Pago en menos de 7 días</li>
+                </ul>
+                <div class="cta-text">
+                    Ajustar parámetros <i class="fas fa-arrow-right"></i>
+                </div>
+            </a>
+        </div>
+
+        <!-- Data & Technology Section -->
+        <div class="data-section">
+            <h2>Tecnología de Vanguardia para tu Tranquilidad</h2>
+            <p class="data-intro">
+                En SeguroTech, combinamos múltiples fuentes de datos satelitales y meteorológicos para ofrecerte 
+                la protección más precisa y los precios más justos del mercado.
+            </p>
+
+            <div class="data-grid">
+                <div class="data-card">
+                    <div class="data-icon">
+                        <i class="fas fa-satellite-dish"></i>
+                    </div>
+                    <h3>Datos Satelitales en Tiempo Real</h3>
+                    <p>
+                        Trabajamos con <strong>EOSDA (Earth Observing System Data Analytics)</strong>, líder mundial en 
+                        monitoreo agrícola satelital. Sus 15+ índices de vegetación, incluyendo NDVI, MSAVI y NDRE, 
+                        nos permiten evaluar la salud de tus cultivos cada 2-5 días con resolución de hasta 10 metros.
+                    </p>
+                </div>
+
+                <div class="data-card">
+                    <div class="data-icon">
+                        <i class="fas fa-cloud-sun-rain"></i>
+                    </div>
+                    <h3>Red Meteorológica Integrada</h3>
+                    <p>
+                        Nuestra alianza con el <strong>Servicio Meteorológico Nacional (SMN)</strong> y la red global 
+                        <strong>Weather Underground</strong> nos da acceso a más de 250,000 estaciones meteorológicas. 
+                        Esto garantiza mediciones precisas de lluvia, granizo y temperatura en tu ubicación exacta.
+                    </p>
+                </div>
+
+                <div class="data-card">
+                    <div class="data-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>Inteligencia Artificial Predictiva</h3>
+                    <p>
+                        Nuestros modelos de machine learning analizan 10 años de datos históricos climáticos, 
+                        patrones de El Niño/La Niña, y tendencias locales para calcular riesgos con precisión del 94%. 
+                        Esto se traduce en primas hasta 40% más bajas que los seguros tradicionales.
+                    </p>
+                </div>
+            </div>
+
+            <div class="data-partners">
+                <h3>Nuestros Socios Tecnológicos</h3>
+                <div class="partners-grid">
+                    <div class="partner-logo">
+                        <img src="https://eos.com/wp-content/uploads/2023/05/eos-data-analytics-logo.svg" alt="EOSDA">
+                        <p>Monitoreo Satelital</p>
+                    </div>
+                    <div class="partner-logo">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/f/f3/NASA-Logo-Large.png" alt="NASA">
+                        <p>Datos Climáticos</p>
+                    </div>
+                    <div class="partner-logo">
+                        <img src="https://www.smn.gob.ar/sites/all/themes/smn/logo.png" alt="SMN Argentina">
+                        <p>Meteorología Local</p>
+                    </div>
+                    <div class="partner-logo">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/The_Weather_Company_logo.svg/1200px-The_Weather_Company_logo.svg.png" alt="Weather Company">
+                        <p>Red Global</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accuracy-metrics">
+                <h3>¿Por qué confiar en nuestros datos?</h3>
+                <div class="metrics-grid">
+                    <div class="metric-item">
+                        <div class="metric-number">94%</div>
+                        <div class="metric-label">Precisión en predicciones</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-number">2-5 días</div>
+                        <div class="metric-label">Frecuencia de monitoreo</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-number">10m</div>
+                        <div class="metric-label">Resolución espacial</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-number">40%</div>
+                        <div class="metric-label">Ahorro vs. seguros tradicionales</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Info Section -->
+        <div class="info-section">
+            <h2>¿Por qué elegir seguros paramétricos?</h2>
+            <p>
+                Los seguros paramétricos revolucionan la protección agrícola al eliminar la burocracia tradicional. 
+                Usando datos objetivos de satélites y estaciones meteorológicas, garantizamos pagos automáticos y transparentes.
+            </p>
+            
+            <div class="benefits-grid">
+                <div class="benefit-item">
+                    <i class="fas fa-rocket"></i>
+                    <h3>Pago en 7 días</h3>
+                    <p>Sin esperas ni papeleos</p>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-satellite"></i>
+                    <h3>Datos objetivos</h3>
+                    <p>Mediciones satelitales precisas</p>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-sliders-h"></i>
+                    <h3>100% personalizable</h3>
+                    <p>Ajusta los parámetros a tu medida</p>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Sin deducibles</h3>
+                    <p>Recibe el 100% de tu cobertura</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
